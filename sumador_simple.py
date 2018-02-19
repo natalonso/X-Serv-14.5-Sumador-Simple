@@ -10,7 +10,6 @@ SAT and SARO subjects (Universidad Rey Juan Carlos)
 """
 
 import socket
-import random
 
 # Create a TCP objet socket and bind it to a port
 # Port should be 80, but since it needs root privileges,
