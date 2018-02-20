@@ -10,6 +10,7 @@ SAT and SARO subjects (Universidad Rey Juan Carlos)
 """
 
 import socket
+import calculadora
 
 # Create a TCP objet socket and bind it to a port
 # Port should be 80, but since it needs root privileges,
@@ -36,35 +37,35 @@ try:
         (recvSocket, address) = mySocket.accept()
         print('Request received:')
 
-
         #MI_CODIGO
         bytes_received = recvSocket.recv(2048)
         request = str(bytes_received,'utf-8')
         print('TROCEO PARA OBTENER LOS OPERANDOS')
-        print(request)
         resource = request.split()[1]
 
         if resource != '/favicon.ico':
-            print(resource)
+
             op1 = resource.split('/')[1]
-            print('EL OPERANDO1 ES: ' + str(op1))
             operacion = resource.split('/')[2]
-            print('LA OPERACION ES: ' + operacion)
             op2 = resource.split('/')[3]
-            print('EL OPERANDO2 ES: ' + str(op2))
+
+            if operacion == 'suma':
+                resultado = calculadora.suma(op1,op2)
+
+            elif operacion == 'resta':
+                resultado = calculadora.resta(op1,op2)
+
+            elif operacion == 'multiplicacion':
+                resultado = calculadora.multiplicacion(op1,op2)
+
+            elif operacion == 'division':
+                resultado = calculadora.division(op1,op2)
+
+            else:
+                resultado = "NO SE CONOCE ESA OPERACION"
+
         else:
             print('FAVICON: NO HAGO NADA: continuo-----------------------------------')
-
-        if operacion == 'suma':
-            resultado = int(op1) + int(op2)
-        elif operacion == 'resta':
-            resultado = int(op1) - int(op2)
-        elif operacion == 'multiplicacion':
-            resultado = int(op1) * int(op2)
-        else:
-            resultado = int(op1) / int(op2)
-
-        print ('EL RESULTADO ES: ' + str(resultado))
 
         print('Answering back...')
 
