@@ -37,7 +37,6 @@ try:
         (recvSocket, address) = mySocket.accept()
         print('Request received:')
 
-        #MI_CODIGO
         bytes_received = recvSocket.recv(2048)
         request = str(bytes_received,'utf-8')
         print('TROCEO PARA OBTENER LOS OPERANDOS')
